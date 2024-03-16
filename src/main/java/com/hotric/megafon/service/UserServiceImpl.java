@@ -48,11 +48,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     
     @Override
     public void updateUser(long id, User user) {
-    
     }
     
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Username not found! " + username));
     }
     
     @Override
