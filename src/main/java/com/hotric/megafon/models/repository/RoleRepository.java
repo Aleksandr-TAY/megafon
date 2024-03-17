@@ -1,4 +1,4 @@
-package com.hotric.megafon.repository;
+package com.hotric.megafon.models.repository;
 
 import com.hotric.megafon.models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,7 +1,7 @@
 package com.hotric.megafon.configs;
 
-import com.hotric.megafon.service.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hotric.megafon.service.impl.UserServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -11,19 +11,16 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static com.hotric.megafon.common.Constants.*;
+
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
     
-    private UserServiceImpl userService;
-    private PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    public SecurityConfig(UserServiceImpl userService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-    }
-    
+    private final UserServiceImpl userService;
+    private final PasswordEncoder passwordEncoder;
+
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -37,9 +34,9 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/fe").hasAnyRole("ADMIN", "FRONTEND");
-                    request.requestMatchers("/be").hasAnyRole("ADMIN", "BACKEND");
-                    request.requestMatchers("/admin").hasRole("ADMIN");
+                    request.requestMatchers("/fe").hasAnyRole(ADMIN, FRONTEND);
+                    request.requestMatchers("/be").hasAnyRole(ADMIN, BACKEND);
+                    request.requestMatchers("/admin").hasRole(ADMIN);
                     request.anyRequest().authenticated();
                 })
                 .formLogin(form -> form

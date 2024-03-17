@@ -1,6 +1,6 @@
-package com.hotric.megafon.repository;
+package com.hotric.megafon.models.repository;
 
-import com.hotric.megafon.models.User;
+import com.hotric.megafon.models.UserEntity;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH, value = "role-graph")
-    Optional <User> findByUsername(String username);
+    Optional <UserEntity> findByUsername(String username);
 }

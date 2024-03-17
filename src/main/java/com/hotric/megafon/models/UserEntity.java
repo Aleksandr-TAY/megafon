@@ -19,7 +19,7 @@ import java.util.Set;
 @Table(name = "users")
 @NamedEntityGraph(name = "role-graph",
         attributeNodes = @NamedAttributeNode("roles"))
-public class User implements UserDetails {
+public class UserEntity implements UserDetails {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,5 +60,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-    
 }
